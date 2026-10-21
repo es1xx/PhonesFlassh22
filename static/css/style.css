@@ -1,0 +1,1537 @@
+/* Базові змінні з підтримкою теми Telegram WebApp */
+:root {
+    --bg-color: var(--tg-theme-bg-color, #0f172a);
+    --secondary-bg-color: var(--tg-theme-secondary-bg-color, #1e293b);
+    --text-color: var(--tg-theme-text-color, #f8fafc);
+    --hint-color: var(--tg-theme-hint-color, #94a3b8);
+    --link-color: var(--tg-theme-link-color, #38bdf8);
+    --button-color: var(--tg-theme-button-color, #3b82f6);
+    --button-text-color: var(--tg-theme-button-text-color, #ffffff);
+    
+    --card-bg: #1e293b;
+    --border-color: #334155;
+    --warning-bg: #451a03;
+    --warning-border: #b45309;
+    --warning-text: #fef3c7;
+    --danger-color: #ef4444;
+    --danger-bg: #450a0a;
+    --danger-border: #b91c1c;
+    --success-color: #10b981;
+    --gold-color: #f59e0b;
+
+    /* Рідкості карток */
+    --rarity-common: #64748b;
+    --rarity-rare: #3b82f6;
+    --rarity-epic: #a855f7;
+    --rarity-legendary: #f59e0b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.app-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 12px 16px 36px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Шапка */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    gap: 8px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar-icon {
+    font-size: 20px;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-color);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Перемикач мов */
+.lang-switcher {
+    display: flex;
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--hint-color);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.lang-btn.active {
+    background-color: var(--button-color);
+    color: #ffffff;
+}
+
+.balance-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--gold-color);
+}
+
+/* Навігація між вкладками */
+.main-nav {
+    display: flex;
+    gap: 8px;
+    background-color: var(--secondary-bg-color);
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.nav-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--hint-color);
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-tab.active {
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+}
+
+/* Дисклеймер */
+.disclaimer-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--warning-text);
+}
+
+.warning-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* Картка клейму */
+.claim-card {
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.claim-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.claim-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.mode-badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #3b82f620;
+    color: #60a5fa;
+    border: 1px solid #3b82f640;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.claim-desc {
+    font-size: 13px;
+    color: var(--hint-color);
+}
+
+.claim-action {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.timer-display {
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--hint-color);
+}
+
+/* Кнопки */
+.btn {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    flex: 1;
+}
+
+.btn-sm {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+}
+
+.btn-success {
+    background-color: #065f46;
+    color: #a7f3d0;
+    border: 1px solid #059669;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+    background-color: #334155;
+}
+
+/* Розділи та фільтри */
+.view-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.view-tab.hidden {
+    display: none;
+}
+
+.section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.section-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.shop-subtitle {
+    font-size: 13px;
+    color: var(--hint-color);
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--hint-color);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.tab-btn.active {
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    border-color: var(--button-color);
+}
+
+/* Сітка карток */
+.cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Картка телефона */
+.phone-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.15s, border-color 0.15s;
+    position: relative;
+    overflow: hidden;
+}
+
+.phone-card.rarity-common {
+    border-left: 5px solid var(--rarity-common);
+}
+.phone-card.rarity-rare {
+    border-left: 5px solid var(--rarity-rare);
+}
+.phone-card.rarity-epic {
+    border-left: 5px solid var(--rarity-epic);
+}
+.phone-card.rarity-legendary {
+    border-left: 5px solid var(--rarity-legendary);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
+}
+
+.phone-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.phone-emoji {
+    font-size: 32px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0f172a60;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.phone-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.phone-brand {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--hint-color);
+}
+
+.phone-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.phone-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-rarity {
+    text-transform: uppercase;
+}
+
+.badge-rarity.common { background-color: #334155; color: #cbd5e1; }
+.badge-rarity.rare { background-color: #1e3a8a; color: #93c5fd; }
+.badge-rarity.epic { background-color: #581c87; color: #d8b4fe; }
+.badge-rarity.legendary { background-color: #78350f; color: #fde68a; }
+
+.badge-level {
+    background-color: #1e293b;
+    border: 1px solid var(--border-color);
+    color: var(--hint-color);
+}
+
+.badge-status {
+    border-radius: 6px;
+}
+
+.badge-status.flashed {
+    background-color: #064e3b;
+    color: #6ee7b7;
+    border: 1px solid #059669;
+}
+
+.badge-status.stock {
+    background-color: #1e293b;
+    color: var(--hint-color);
+    border: 1px solid var(--border-color);
+}
+
+.phone-pricing {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0f172a50;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.price-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.price-val {
+    font-weight: 700;
+    color: var(--gold-color);
+}
+
+.phone-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-flash {
+    flex: 2;
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.btn-flash.flashed {
+    background-color: #059669;
+}
+
+.btn-upgrade {
+    flex: 1.5;
+}
+
+.btn-sell {
+    flex: 1;
+    background-color: #475569;
+    color: #f1f5f9;
+}
+
+/* Порожній стан */
+.empty-state {
+    background-color: var(--secondary-bg-color);
+    border: 1px dashed var(--border-color);
+    border-radius: 14px;
+    padding: 32px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.empty-icon {
+    font-size: 40px;
+    margin-bottom: 4px;
+}
+
+.empty-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.empty-desc {
+    font-size: 13px;
+    color: var(--hint-color);
+    max-width: 320px;
+}
+
+/* МОДАЛЬНЕ ВІКНО ПРОШИВКИ (ЕТАП 3) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1100;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 500px;
+    max-height: 94vh;
+    overflow-y: auto;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.25s ease-out;
+}
+
+@media (min-width: 768px) {
+    .modal-overlay {
+        align-items: center;
+        padding: 20px;
+    }
+    .modal-content {
+        max-width: 1100px;
+        width: 95vw;
+        border-radius: 24px;
+        max-height: 92vh;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    }
+    .modal-content .flashing-workspace {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-phone-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-emoji {
+    font-size: 28px;
+}
+
+.modal-phone-title h3 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.step-counter {
+    font-size: 12px;
+    color: var(--hint-color);
+}
+
+.btn-close {
+    background: transparent;
+    border: none;
+    color: var(--hint-color);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.modal-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--warning-text);
+}
+
+/* Прогрес-бар */
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: #0f172a;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #10b981);
+    transition: width 0.3s ease;
+}
+
+/* Тіло кроку */
+.step-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+/* Яскраво-червоне попередження */
+.warning-box {
+    background-color: var(--danger-bg);
+    border: 2px solid var(--danger-border);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.warning-box.hidden {
+    display: none;
+}
+
+.warning-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #fca5a5;
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.warning-box-text {
+    font-size: 13px;
+    color: #fee2e2;
+    line-height: 1.4;
+}
+
+.warning-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fecaca;
+    background-color: #7f1d1d50;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.warning-checkbox-label input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.step-text {
+    font-size: 14px;
+    color: #e2e8f0;
+    white-space: pre-line;
+    line-height: 1.5;
+}
+
+/* Робоча зона лабораторії прошивки */
+.flashing-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Режим для ноутбуків / Desktop */
+.flashing-workspace.desktop-wide {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+/* Симулятор смартфона - витягнуті пропорції 19.5:9 / 20:9 */
+.phone-mockup {
+    width: 216px;
+    margin: 0 auto;
+    background-color: #020617;
+    border: 3.5px solid #334155;
+    border-radius: 36px;
+    padding: 8px 6px;
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.8), 0 0 24px rgba(56, 189, 248, 0.12);
+    position: relative;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+/* Шасі: iPhone Classic (Touch ID home button ring) */
+.phone-mockup.chassis-iphone-classic {
+    border-radius: 40px;
+    padding-bottom: 38px;
+    border-color: #475569;
+}
+.phone-mockup.chassis-iphone-classic::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #64748b;
+    background: #0f172a;
+}
+
+/* Шасі: Nothing (Glyph LED strips) */
+.phone-mockup.chassis-nothing-glyph {
+    border-color: #06b6d4;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.25), inset 0 0 10px rgba(6, 182, 212, 0.15);
+}
+
+/* Шасі: Google Pixel (Камерна панель) */
+.phone-mockup.chassis-pixel-visor {
+    border-color: #3b82f6;
+    border-top-width: 5px;
+}
+
+/* Шасі: Samsung Curved */
+.phone-mockup.chassis-samsung-curved {
+    border-radius: 28px;
+    border-color: #6366f1;
+}
+
+.phone-mockup-speaker {
+    width: 44px;
+    height: 4px;
+    background-color: #1e293b;
+    border-radius: 2px;
+    margin: 2px auto 6px auto;
+}
+
+/* Камера/Виріз зверху */
+.phone-top-notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #020617;
+    z-index: 10;
+    pointer-events: none;
+}
+.phone-top-notch.notch-wide {
+    width: 72px;
+    height: 14px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.phone-top-notch.punch-center {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #000000;
+    border: 1.5px solid #1e293b;
+}
+
+/* Екран смартфона - витягнутий вертикально 340px замість 160px */
+.phone-mockup-screen {
+    width: 100%;
+    height: 340px;
+    min-height: 340px;
+    border-radius: 26px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 16px 10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+    transition: all 0.3s ease;
+}
+
+.screen-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.screen-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+}
+
+.screen-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.screen-desc {
+    font-size: 10px;
+    opacity: 0.85;
+    margin-top: 2px;
+}
+
+.screen-progress {
+    width: 80%;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.screen-progress.hidden {
+    display: none;
+}
+
+.screen-progress-fill {
+    width: 47%;
+    height: 100%;
+    background-color: #38bdf8;
+    transition: width 0.3s;
+}
+
+/* СТАНИ ЕКРАНА */
+/* Сток */
+.phone-mockup-screen.state-stock {
+    background: linear-gradient(180deg, #1e3a8a, #0f172a);
+    color: #f8fafc;
+}
+
+/* Fastboot режим (зелений андроїд робот) */
+.phone-mockup-screen.state-fastboot {
+    background-color: #000000;
+    color: #4ade80;
+    font-family: monospace;
+    border: 1px solid #166534;
+}
+
+.phone-mockup-screen.state-fastboot .screen-title {
+    color: #86efac;
+    text-transform: uppercase;
+}
+
+/* Samsung Download Mode (бірюзовий) */
+.phone-mockup-screen.state-download {
+    background: #0d9488;
+    color: #ffffff;
+}
+
+.phone-mockup-screen.state-download .screen-title {
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* Apple DFU Mode (чорний екран) */
+.phone-mockup-screen.state-dfu {
+    background-color: #000000;
+    color: #475569;
+}
+
+.phone-mockup-screen.state-dfu .screen-title {
+    color: #64748b;
+    font-size: 11px;
+}
+
+/* Recovery меню (LineageOS / TWRP) */
+.phone-mockup-screen.state-recovery {
+    background-color: #030712;
+    color: #38bdf8;
+    border: 1px solid #0284c7;
+    font-family: monospace;
+}
+
+.phone-mockup-screen.state-recovery .screen-title {
+    color: #7dd3fc;
+    border-bottom: 1px solid #0369a1;
+    padding-bottom: 2px;
+    width: 100%;
+}
+
+/* Sideload прогрес */
+.phone-mockup-screen.state-sideload {
+    background-color: #090d16;
+    color: #a5f3fc;
+    font-family: monospace;
+}
+
+/* Booting анімація */
+.phone-mockup-screen.state-booting {
+    background-color: #000000;
+    color: #38bdf8;
+}
+
+.phone-mockup-screen.state-booting .screen-icon {
+    animation: spinSlow 3s linear infinite;
+}
+
+@keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Стан Hard Brick / Крах системи */
+.phone-mockup-screen.state-hardbrick {
+    background-color: #450a0a;
+    color: #fca5a5;
+    border: 2px solid #ef4444;
+    font-family: monospace;
+}
+.phone-mockup-screen.state-hardbrick .screen-title {
+    color: #f87171;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* Вимикання розмиття (Blur toggle) */
+body.no-blur, body.no-blur * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+body.no-blur .modal-overlay {
+    background-color: rgba(15, 23, 42, 0.98);
+}
+body.no-blur .bottom-nav-bar {
+    background-color: #0f172a;
+}
+
+/* Інструкції та термінал */
+.instructions-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Емулятор термінала */
+.terminal-box {
+    background-color: #090d16;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.terminal-box.hidden {
+    display: none;
+}
+
+.terminal-bar {
+    background-color: #0f172a;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid #1e293b;
+}
+
+.term-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.term-dot.red { background-color: #ef4444; }
+.term-dot.yellow { background-color: #f59e0b; }
+.term-dot.green { background-color: #10b981; }
+
+.term-title {
+    font-size: 11px;
+    color: #64748b;
+    margin-left: 4px;
+}
+
+.terminal-logs {
+    padding: 8px 10px;
+    min-height: 60px;
+    max-height: 120px;
+    overflow-y: auto;
+    font-size: 11px;
+    color: #38bdf8;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.terminal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 6px 10px;
+    background-color: #0f172a;
+    border-top: 1px solid #1e293b;
+}
+
+.btn-terminal {
+    background-color: #059669;
+    color: #ffffff;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.btn-terminal:hover {
+    background-color: #10b981;
+}
+
+.btn-copy {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    color: #f1f5f9;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.15s;
+}
+
+.btn-copy:hover {
+    background-color: #334155;
+}
+
+/* Чекліст підпунктів */
+.checklist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.checklist-container.hidden {
+    display: none;
+}
+
+.checklist-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--hint-color);
+}
+
+.checklist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #cbd5e1;
+    background-color: #0f172a50;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.checklist-item input {
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+/* Головний чекбокс завершення кроку */
+.step-completion-box {
+    background-color: #0f172a80;
+    border: 1px solid var(--border-color);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-top: 4px;
+}
+
+.step-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.step-checkbox-label input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--success-color);
+    cursor: pointer;
+}
+
+/* Джерела та примітки */
+.modal-footer-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+
+.firmware-note {
+    font-size: 11px;
+    color: #fde68a;
+    background-color: #451a0360;
+    border-left: 3px solid #f59e0b;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+.firmware-note.hidden {
+    display: none;
+}
+
+.sources-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sources-container.hidden {
+    display: none;
+}
+
+.sources-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--hint-color);
+}
+
+.sources-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.source-link {
+    font-size: 11px;
+    color: var(--link-color);
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+/* Кнопки дій модалки */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+/* DEV панель */
+.dev-panel {
+    background-color: #172554;
+    border: 1px solid #1e40af;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dev-panel.hidden {
+    display: none;
+}
+
+.dev-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dev-badge {
+    font-size: 12px;
+    font-weight: 700;
+    color: #93c5fd;
+}
+
+.dev-hint {
+    font-size: 11px;
+    color: #60a5fa;
+}
+
+.dev-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btn-dev {
+    background-color: #1e3a8a;
+    color: #e0e7ff;
+    border: 1px solid #2563eb;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.btn-danger {
+    background-color: #7f1d1d;
+    color: #fecaca;
+    border-color: #dc2626;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #334155;
+    color: #f8fafc;
+    border: 1px solid #475569;
+    padding: 10px 18px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 1200;
+    transition: opacity 0.3s;
+    max-width: 90%;
+    text-align: center;
+}
+
+.toast.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* НИЖНЯ МОБІЛЬНА НАВІГАЦІЯ */
+.bottom-nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    height: 60px;
+    background-color: rgba(15, 23, 42, 0.96);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.bnav-item {
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: var(--hint-color);
+    cursor: pointer;
+    flex: 1;
+    height: 100%;
+    transition: all 0.15s ease;
+}
+
+.bnav-item.active {
+    color: var(--link-color);
+    font-weight: 700;
+    transform: translateY(-1px);
+}
+
+.bnav-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.bnav-label {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.app-container {
+    padding-bottom: 75px !important;
+}
+
+/* ФІЗИЧНІ КНОПКИ НА СМАРТФОНІ */
+.phone-mockup-wrapper {
+    position: relative;
+    width: 250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.side-buttons-left {
+    position: absolute;
+    left: 2px;
+    top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+}
+
+.side-buttons-right {
+    position: absolute;
+    right: 2px;
+    top: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 10;
+}
+
+.hardware-key {
+    width: 10px;
+    height: 32px;
+    background-color: #475569;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.hardware-key:active {
+    background-color: var(--link-color);
+}
+
+.key-power {
+    height: 38px;
+    border-radius: 0 4px 4px 0;
+}
+
+/* СЕНСОРНЕ МЕНЮ RECOVERY */
+.screen-recovery-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.screen-recovery-menu.hidden {
+    display: none;
+}
+
+.recovery-item {
+    background-color: #0f172a;
+    border: 1px solid #0369a1;
+    color: #38bdf8;
+    font-size: 10px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    text-align: left;
+    cursor: pointer;
+    font-family: monospace;
+    transition: background-color 0.15s;
+}
+
+.recovery-item:hover, .recovery-item:active {
+    background-color: #0369a1;
+    color: #ffffff;
+}
+
+.recovery-item.danger {
+    border-color: #b91c1c;
+    color: #fca5a5;
+}
+
+.recovery-item.danger:hover, .recovery-item.danger:active {
+    background-color: #b91c1c;
+    color: #ffffff;
+}
+
+/* ПАНЕЛЬ ДІЙ ВОРКШОПУ */
+.action-controls-box {
+    background-color: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+}
+
+.control-title {
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.control-hint {
+    color: var(--hint-color);
+    font-size: 10px;
+}
+
+.workshop-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* СТАТИСТИКА АДМІНКИ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.stat-card {
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--hint-color);
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 800;
+    font-family: monospace;
+}
+
+.text-emerald { color: #10b981; }
+.text-amber { color: #f59e0b; }
+
+.admin-broadcast-box {
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-broadcast-box textarea {
+    background-color: #020617;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    padding: 8px;
+    font-size: 12px;
+    resize: none;
+    height: 60px;
+}
+
+.settings-card {
+    background-color: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lang-switcher-large {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.lang-switcher-large .lang-btn {
+    padding: 8px 6px;
+    font-size: 12px;
+    border-radius: 6px;
+    background-color: #0f172a;
+    border: 1px solid var(--border-color);
+}
+
+.lang-switcher-large .lang-btn.active {
+    background-color: var(--button-color);
+    color: #ffffff;
+}

@@ -1,0 +1,143 @@
+{
+  "brand": "Redmi",
+  "name": "Redmi Note 10S",
+  "codename": "rosemary",
+  "rarity": "common",
+  "base_price": 120,
+  "max_level": 5,
+  "active": true,
+  "emoji": "📱",
+  "firmware_note": "V14.0.11.0.TKLMIXM за актуальною вікі LineageOS; у копії вікі 2025 року було V14.0.7.0.TKLMIXM: звір на сторінці моделі",
+  "sources": [
+    "https://wiki.lineageos.org/devices/rosemary/install/variant1/"
+  ],
+  "instructions": [
+    {
+      "id": "rosemary-01",
+      "title": "Перевір модель",
+      "warning": "Модель має збігатися ТОЧНО з Redmi Note 10S (rosemary). Інші версії цього телефона цим способом прошивати не можна!",
+      "text": "Переконайтеся, що ваш пристрій є саме Redmi Note 10S (rosemary). Спроба прошити іншу модель призведе до окрипічення (hard brick).",
+      "commands": [],
+      "checklist": [
+        "Перевірено кодову назву пристрою (rosemary)"
+      ]
+    },
+    {
+      "id": "rosemary-02",
+      "title": "Потрібна прошивка (firmware)",
+      "warning": "Неправильна версія firmware може призвести до збоїв і непоправної шкоди пристрою!",
+      "text": "Потрібен стоковий Android 13, Global firmware. Якщо у вас інша версія Android, спершу відкати або онови стокову прошивку (її треба знайти окремо).",
+      "commands": [],
+      "checklist": [
+        "Встановлено стоковий Android 13 Global"
+      ]
+    },
+    {
+      "id": "rosemary-03",
+      "title": "Бекап і акаунти",
+      "warning": "Розблокування bootloader та прошивка стирають абсолютно всі дані з пристрою!",
+      "text": "Зробіть бекап на ПК. Обов'язково видаліть усі акаунти Google (захист Factory Reset Protection). На стоковій системі перевірте, що працюють дзвінки та SMS (також через Wi-Fi і LTE), бо якщо вони не працюють на стоку, то не працюватимуть і на LineageOS.",
+      "commands": [],
+      "checklist": [
+        "Створено бекап файлів на ПК",
+        "Видалено акаунти Google та Mi",
+        "Перевірено роботу дзвінків, SMS, Wi-Fi та LTE"
+      ]
+    },
+    {
+      "id": "rosemary-04",
+      "title": "Інструменти",
+      "warning": null,
+      "text": "На ПК потрібні adb і fastboot (platform-tools від Google). USB debugging має бути увімкнено на телефоні (Налаштування → Про телефон → тапнути номер збірки 7 разів → Параметри розробника). Linux: можуть знадобитись правила udev; «no permissions» у fastboot вирішується запуском від root. Якщо fastboot висить без виводу, спробуйте інший порт USB (краще USB-A 2.0) або хаб.",
+      "commands": [
+        "adb devices"
+      ],
+      "checklist": [
+        "adb та fastboot встановлено на ПК",
+        "Телефон успішно відповідає на команду adb devices"
+      ]
+    },
+    {
+      "id": "rosemary-05",
+      "title": "Розблокування bootloader (Xiaomi / Redmi / Poco)",
+      "warning": "ЦЕ ЄДИНИЙ крок, який потребує Windows (Windows 7 або новіша): офіційна програма Mi Unlock працює лише на Windows. НЕ використовуй «модифіковані» Mi Unlock з сайтів, що обіцяють обхід очікування!",
+      "text": "1. Створити Mi-акаунт на сайті Xiaomi і додати номер телефону. Один акаунт розблоковує до 4 пристроїв на рік і не частіше ніж раз на 30 днів.\n2. Вставити SIM-картку в телефон.\n3. Налаштування → Про телефон → багато разів тапнути «Версія MIUI», щоб увімкнути режим розробника.\n4. Прив'язати телефон до Mi-акаунта: Параметри розробника → Mi Unlock status.\n5. Завантажити Mi Unlock (версія v7.6.727.43 за вікі LineageOS).\n6. Запустити driver_install.exe (32-біт) або driver_install_64.exe (64-біт).\n7. Запустити Mi Unlock і виконувати підказки. Якщо програма каже чекати (за FAQ Xiaomi мінімум 7 днів, на вікі LineageOS написано що може бути до 30 днів) — чекай повністю. Радять починати о півночі за GMT+8.\n8. Після розблокування телефон скидається: знову увімкнути USB debugging.",
+      "commands": [],
+      "checklist": [
+        "Mi-акаунт створено та прив'язано до пристрою",
+        "Період очікування таймера Mi Unlock витримано повністю",
+        "Bootloader успішно розблоковано, USB debugging увімкнено знову"
+      ]
+    },
+    {
+      "id": "rosemary-06",
+      "title": "Встановлення Recovery (Тип B: dtbo + boot)",
+      "warning": "ОДРАЗУ зайти в recovery після прошивки, не завантажуючись у систему! Якщо завантажитися в систему, стокова прошивка перезапише recovery.",
+      "text": "Завантажити dtbo.img і boot.img зі сторінки завантажень LineageOS (boot.img і є Lineage Recovery). Вимкнений телефон + Volume Down + Power до появи напису FASTBOOT. Прошити dtbo.img, потім boot.img. Одразу після цього: вимкнений телефон + Volume Up + Power, доки не з'явиться логотип Redmi, тоді відпустити. Якщо не бачиш логотип LineageOS, повторити крок з початку.",
+      "commands": [
+        "adb -d reboot bootloader",
+        "fastboot devices",
+        "fastboot flash dtbo dtbo.img",
+        "fastboot flash boot boot.img"
+      ],
+      "checklist": [
+        "Прошито dtbo.img та boot.img через fastboot",
+        "Здійснено вхід у Lineage Recovery (видно фірмовий логотип)"
+      ]
+    },
+    {
+      "id": "rosemary-07",
+      "title": "Форматування даних",
+      "warning": "Format data остаточно видаляє всі файли на телефоні та знімає шифрування!",
+      "text": "У recovery виберіть Factory Reset → Format data / factory reset. Після завершення поверніться в головне меню. Якщо сенсор не працює: кнопки гучності для переміщення, кнопка живлення для вибору.",
+      "commands": [],
+      "checklist": [
+        "Форматування даних виконано успішно"
+      ]
+    },
+    {
+      "id": "rosemary-08",
+      "title": "Sideload LineageOS",
+      "warning": "Не перезавантажувати систему, доки не дочитаєш крок про додатки (GApps)!",
+      "text": "На телефоні виберіть Apply update → Apply from ADB. На ПК виконайте команду sideload. Нормально, якщо прогрес зупинився на 47% з повідомленням failed to read command: Success / No error / Undefined error: 0, якщо інсталяція завершилась. Якщо підпис не пройшов — файл пошкоджено або це неофіційний образ, завантажте заново.",
+      "commands": [
+        "adb -d sideload /path/to/lineageos.zip"
+      ],
+      "checklist": [
+        "LineageOS успішно передано через ADB sideload"
+      ]
+    },
+    {
+      "id": "rosemary-09",
+      "title": "Додатки (Google Apps), за бажанням",
+      "warning": "Встановлювати ТІЛЬКИ до першого запуску системи LineageOS!",
+      "text": "Використовуйте пакет arm64. Кожен додатковий пакет встановлюється окремо: Apply update → Apply from ADB → adb -d sideload. На екрані «Signature verification failed» вибрати Yes (це очікувано).",
+      "commands": [
+        "adb -d sideload /path/to/gapps.zip"
+      ],
+      "checklist": [
+        "GApps встановлено (або пропущено за власним бажанням)"
+      ]
+    },
+    {
+      "id": "rosemary-10",
+      "title": "Перший запуск",
+      "warning": null,
+      "text": "Стрілка назад у головне меню → «Reboot system now». Перше завантаження може тривати до ~15 хвилин. Якщо довше — це означає, що було пропущено крок форматування або прошивки.",
+      "commands": [],
+      "checklist": [
+        "Телефон перезавантажено в нову систему LineageOS"
+      ]
+    },
+    {
+      "id": "rosemary-11",
+      "title": "Після встановлення",
+      "warning": null,
+      "text": "Попередження про розблокований bootloader при запуску не прибрати. Не видаляйте системні програми. Рут офіційно не підтримується. Деякі застосунки можуть відмовитись працювати через перевірки цілісності пристрою (Play Integrity / SafetyNet). Перед блокуванням bootloader назад обов'язково прочитайте FAQ LineageOS.",
+      "commands": [],
+      "checklist": [
+        "Ознайомлено з правилами експлуатації прошитого смартфона"
+      ]
+    }
+  ]
+}

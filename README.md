@@ -1,11 +1,6 @@
-<div align="center">
+# 📱 Флешер — Гра-колекція та навчальний симулятор прошивки смартфонів
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Telegram-бот + Telegram Mini App українською мовою з реальними покроковими інструкціями для 15 моделей телефонів (Samsung, Xiaomi, Poco, Pixel, iPhone, Nothing).
 
-  <h1>Built with AI Studio</h2>
+> ⚠️ **Важливе застереження:** Це навчальна гра-симулятор. Реальні дії зі своїм телефоном робляться на власний ризик і після обов'язкової звірки з офіційною сторінкою моделі.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
-
-  <a href="https://aistudio.google.com/apps">Start building</a>
-
-</div>

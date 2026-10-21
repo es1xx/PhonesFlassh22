@@ -1,0 +1,144 @@
+{
+  "brand": "Samsung",
+  "name": "Galaxy S10e",
+  "codename": "beyond0lte",
+  "rarity": "rare",
+  "base_price": 280,
+  "max_level": 5,
+  "active": true,
+  "emoji": "📱",
+  "firmware_note": null,
+  "sources": [
+    "https://wiki.lineageos.org/devices/beyond0lte/install/"
+  ],
+  "instructions": [
+    {
+      "id": "beyond0lte-01",
+      "title": "Перевір модель",
+      "warning": "Модель має збігатися ТОЧНО зі списком: SM-G970F, SM-G970F/DS, SM-G970N. Американські та інші моделі на процесорах Snapdragon цими інструкціями прошивати категорично не можна! Деякі фірмові функції Samsung, прив'язані до Knox (Samsung Pay, Захищена папка), назавжди перестануть працювати.",
+      "text": "Переконайтеся, що ваш пристрій побудовано на процесорі Exynos та він має номер моделі з дозволеного списку.",
+      "commands": [],
+      "checklist": [
+        "Перевірено модель (SM-G970F, SM-G970F/DS або SM-G970N)",
+        "Підтверджено, що пристрій не на Snapdragon",
+        "Усвідомлено незворотне відключення функцій Samsung Knox"
+      ]
+    },
+    {
+      "id": "beyond0lte-02",
+      "title": "Потрібна прошивка (firmware)",
+      "warning": "Невідповідність версії базового Android призведе до збоїв!",
+      "text": "Потрібен стоковий Android 12 (останнє оновлення безпеки цієї версії). Якщо на телефоні встановлено іншу версію Android, спершу оновіть або відкотіть стокову прошивку окремо.",
+      "commands": [],
+      "checklist": [
+        "Встановлено стоковий Android 12 з останніми патчами безпеки"
+      ]
+    },
+    {
+      "id": "beyond0lte-03",
+      "title": "Бекап і акаунти",
+      "warning": "Розблокування bootloader стирає всі збережені дані без можливості відновлення!",
+      "text": "Зробіть резервну копію файлів на ПК. Обов'язково видаліть усі акаунти Google (FRP) та Samsung. Перевірте працездатність дзвінків, SMS, Wi-Fi та LTE на стоковій прошивці.",
+      "commands": [],
+      "checklist": [
+        "Створено повний бекап на ПК",
+        "Видалено всі облікові записи Google та Samsung",
+        "Зв'язок і модулі зв'язку перевірено"
+      ]
+    },
+    {
+      "id": "beyond0lte-04",
+      "title": "Інструменти",
+      "warning": null,
+      "text": "На ПК потрібні adb та fastboot. Увімкніть USB debugging на телефоні (Налаштування → Про телефон → тапнути Build number 7 разів → Параметри розробника). Перевірка: adb devices.",
+      "commands": [
+        "adb devices"
+      ],
+      "checklist": [
+        "adb встановлено та бачить пристрій"
+      ]
+    },
+    {
+      "id": "beyond0lte-05",
+      "title": "Розблокування bootloader (Samsung Galaxy S10 / S10e / S10+)",
+      "warning": "Розблокування призведе до повного скидання даних пристрою!",
+      "text": "1. Підключити телефон до Wi-Fi. Налаштування → Про телефон → тапнути «Build number», щоб увімкнути режим розробника, та увімкнути пункт «OEM unlock». Якщо пункту OEM unlock немає або він сірий — НЕ продовжувати!\n2. Вимкнути телефон. Затиснути Volume Down + Bixby і підключити USB-кабель до ПК.\n3. На екрані вибрати кнопку, що відповідає «Continue» та/або «Device unlock mode» / «Unlock Bootloader».\n4. Телефон перезавантажиться, кабель можна від'єднати.\n5. Телефон попросить скинути налаштування: погодитися. Пройти початкове налаштування, пропускаючи все можливе, підключитися до Wi-Fi.\n6. Знову увімкнути режим розробника (тапнути «Build number» 10 разів) і ПЕРЕВІРИТИ, що «OEM unlock» досі увімкнено.",
+      "commands": [],
+      "checklist": [
+        "OEM unlock увімкнено в налаштуваннях",
+        "Bootloader розблоковано через Download mode",
+        "Після скидання повторно підтверджено статус OEM unlock"
+      ]
+    },
+    {
+      "id": "beyond0lte-06",
+      "title": "Встановлення Recovery (Тип C: Heimdall)",
+      "warning": "Вікі LineageOS іноді змінює рекомендований інструмент (Heimdall або samloader-rs), тому обов'язково звірте з поточною сторінкою моделі! Якщо не зайти в recovery одразу після прошивки, стокова прошивка перезапише його.",
+      "text": "Встановити Heimdall: у Linux скопіювати виконуваний файл у /usr/local/bin; у Windows встановити UsbDk. Перевірка: heimdall version. Увійти в Download mode (вимкнути телефон, Volume Down + Bixby + USB, на екрані «Continue») і перевірити зв'язок командою heimdall print-pit (телефон перезавантажиться, якщо зв'язок є). Завантажити recovery.img. Знову увійти в Download mode та прошити recovery командою нижче. Екран може лишитись на «Downloading... Do not turn off target!!» — це нормально. Далі виконайте force-off: Volume Down + Power утримувати 8-10 секунд до чорного екрана й ОДРАЗУ відпустити; потім, поки кабель підключено, затиснути Volume Up + Bixby + Power, доки не з'явиться recovery. Перевірте наявність логотипа LineageOS.",
+      "commands": [
+        "heimdall version",
+        "heimdall print-pit",
+        "heimdall flash --RECOVERY recovery.img --no-reboot"
+      ],
+      "checklist": [
+        "Heimdall протестовано через print-pit",
+        "recovery.img прошито без автоматичного перезавантаження",
+        "Здійснено комбінацію force-off та успішний вхід у Lineage Recovery"
+      ]
+    },
+    {
+      "id": "beyond0lte-07",
+      "title": "Форматування даних",
+      "warning": "Знищує всі дані та шифрування розділу Data!",
+      "text": "У recovery виберіть Factory Reset → Format data / factory reset. Поверніться в головне меню recovery.",
+      "commands": [],
+      "checklist": [
+        "Форматування даних виконано"
+      ]
+    },
+    {
+      "id": "beyond0lte-08",
+      "title": "Sideload LineageOS",
+      "warning": "Не перезавантажувати пристрій до ознайомлення з кроком GApps!",
+      "text": "У меню recovery: Apply update → Apply from ADB. На комп'ютері виконайте команду sideload. Прогрес 47% з помилкою «failed to read command: Success» є нормальним результатом.",
+      "commands": [
+        "adb -d sideload /path/to/lineageos.zip"
+      ],
+      "checklist": [
+        "LineageOS передано через sideload"
+      ]
+    },
+    {
+      "id": "beyond0lte-09",
+      "title": "Додатки (Google Apps), за бажанням",
+      "warning": "Встановлювати ТІЛЬКИ до першого запуску системи!",
+      "text": "Пакет arm64. На телефоні: Apply update → Apply from ADB → adb -d sideload /path/to/gapps.zip. На екрані «Signature verification failed» вибрати Yes.",
+      "commands": [
+        "adb -d sideload /path/to/gapps.zip"
+      ],
+      "checklist": [
+        "GApps встановлено або пропущено"
+      ]
+    },
+    {
+      "id": "beyond0lte-10",
+      "title": "Перший запуск",
+      "warning": null,
+      "text": "Виберіть «Reboot system now». Перше завантаження системи триває до ~15 хвилин.",
+      "commands": [],
+      "checklist": [
+        "Samsung Galaxy S10e завантажено в LineageOS"
+      ]
+    },
+    {
+      "id": "beyond0lte-11",
+      "title": "Після встановлення",
+      "warning": null,
+      "text": "Попередження завантажувача не прибирається. Системні служби Samsung Knox більше не працюватимуть. Рут офіційно не підтримується. Ознайомтеся з FAQ LineageOS.",
+      "commands": [],
+      "checklist": [
+        "Ознайомлено з інструкцією після прошивки"
+      ]
+    }
+  ]
+}

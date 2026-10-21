@@ -1,0 +1,144 @@
+{
+  "brand": "Samsung",
+  "name": "Galaxy S10+",
+  "codename": "beyond2lte",
+  "rarity": "legendary",
+  "base_price": 1000,
+  "max_level": 5,
+  "active": true,
+  "emoji": "📱",
+  "firmware_note": null,
+  "sources": [
+    "https://wiki.lineageos.org/devices/beyond2lte/install/"
+  ],
+  "instructions": [
+    {
+      "id": "beyond2lte-01",
+      "title": "Перевір модель",
+      "warning": "Модель має збігатися ТОЧНО зі списком: SM-G975F, SM-G975F/DS, SM-G975N. Американські та інші моделі на процесорах Snapdragon цими інструкціями прошивати не можна! Окремі фірмові функції Samsung, які використовують Knox (Samsung Pay, Secure Folder), безповоротно перестануть працювати.",
+      "text": "Переконайтеся, що ваш пристрій побудовано на базі процесора Exynos та номер моделі відповідає зазначеному списку.",
+      "commands": [],
+      "checklist": [
+        "Перевірено номер моделі (SM-G975F, SM-G975F/DS або SM-G975N)",
+        "Підтверджено відсутність чіпа Snapdragon",
+        "Усвідомлено незворотне відключення сервісів Samsung Knox"
+      ]
+    },
+    {
+      "id": "beyond2lte-02",
+      "title": "Потрібна прошивка (firmware)",
+      "warning": "Неправильна версія базової ОС може призвести до непоправної шкоди пристрою!",
+      "text": "Потрібен стоковий Android 12 (останнє доступне оновлення безпеки цієї версії). Якщо на телефоні інша версія Android, спершу оновіть або відкотіть її окремо.",
+      "commands": [],
+      "checklist": [
+        "Встановлено стоковий Android 12"
+      ]
+    },
+    {
+      "id": "beyond2lte-03",
+      "title": "Бекап і акаунти",
+      "warning": "Розблокування bootloader безповоротно стирає всі дані з пам'яті телефону!",
+      "text": "Зробіть повний бекап на ПК. Обов'язково видаліть усі облікові записи Google та Samsung (FRP). На стоковій прошивці перевірте роботу дзвінків, SMS, Wi-Fi та LTE.",
+      "commands": [],
+      "checklist": [
+        "Бекап файлів збережено",
+        "Акаунти Google та Samsung видалено",
+        "Зв'язок і мережі перевірено"
+      ]
+    },
+    {
+      "id": "beyond2lte-04",
+      "title": "Інструменти",
+      "warning": null,
+      "text": "На ПК потрібні adb та fastboot. Увімкніть USB debugging на телефоні. Перевірка: adb devices.",
+      "commands": [
+        "adb devices"
+      ],
+      "checklist": [
+        "adb та fastboot налаштовано"
+      ]
+    },
+    {
+      "id": "beyond2lte-05",
+      "title": "Розблокування bootloader (Samsung Galaxy S10 / S10e / S10+)",
+      "warning": "Розблокування стирає абсолютно всі дані!",
+      "text": "1. Підключіть телефон до Wi-Fi. Увімкніть режим розробника та пункт «OEM unlock». Якщо пункту немає або він неактивний — НЕ продовжувати!\n2. Вимкніть телефон, затисніть Volume Down + Bixby і підключіть кабель до ПК.\n3. Виберіть пункт «Device unlock mode» / «Unlock Bootloader».\n4. Погодьтеся на скидання налаштувань, підключіться до Wi-Fi та переконайтеся, що «OEM unlock» залишається активним.",
+      "commands": [],
+      "checklist": [
+        "OEM unlock увімкнено",
+        "Bootloader розблоковано в Download mode",
+        "Статус OEM unlock повторно підтверджено"
+      ]
+    },
+    {
+      "id": "beyond2lte-06",
+      "title": "Встановлення Recovery (Тип C: Heimdall)",
+      "warning": "Якщо не зайти в recovery одразу після прошивки, стокова прошивка перезапише його! Звірте поточну інструкцію на офіційній сторінці моделі.",
+      "text": "Встановіть Heimdall. Увімкніть Download mode (Volume Down + Bixby + USB) і перевірте зв'язок командою heimdall print-pit. Завантажте recovery.img і прошийте командою нижче. Потім виконайте force-off (Volume Down + Power на 8-10 секунд до чорного екрана й відпустити), після чого одразу затисніть Volume Up + Bixby + Power, поки не з'явиться recovery.",
+      "commands": [
+        "heimdall version",
+        "heimdall print-pit",
+        "heimdall flash --RECOVERY recovery.img --no-reboot"
+      ],
+      "checklist": [
+        "Команда heimdall print-pit пройшла успішно",
+        "recovery.img прошито",
+        "Успішний вхід у Lineage Recovery"
+      ]
+    },
+    {
+      "id": "beyond2lte-07",
+      "title": "Форматування даних",
+      "warning": "Форматування розділу Data знищує всі файли!",
+      "text": "У recovery виберіть Factory Reset → Format data / factory reset. Поверніться назад.",
+      "commands": [],
+      "checklist": [
+        "Форматування даних виконано"
+      ]
+    },
+    {
+      "id": "beyond2lte-08",
+      "title": "Sideload LineageOS",
+      "warning": "Не завантажуйте систему, якщо плануєте встановлення Google Apps!",
+      "text": "На пристрої: Apply update → Apply from ADB. На ПК: adb -d sideload /path/to/lineageos.zip. Прогрес 47% свідчить про успішне завершення.",
+      "commands": [
+        "adb -d sideload /path/to/lineageos.zip"
+      ],
+      "checklist": [
+        "LineageOS передано через sideload"
+      ]
+    },
+    {
+      "id": "beyond2lte-09",
+      "title": "Додатки (Google Apps), за бажанням",
+      "warning": "Встановлювати виключно перед першим завантаженням системи!",
+      "text": "Використовуйте arm64 версію: Apply update → Apply from ADB → adb -d sideload /path/to/gapps.zip. При появі «Signature verification failed» натисніть Yes.",
+      "commands": [
+        "adb -d sideload /path/to/gapps.zip"
+      ],
+      "checklist": [
+        "GApps встановлено або пропущено"
+      ]
+    },
+    {
+      "id": "beyond2lte-10",
+      "title": "Перший запуск",
+      "warning": null,
+      "text": "Виберіть «Reboot system now». Перше завантаження займає до 15 хвилин.",
+      "commands": [],
+      "checklist": [
+        "Galaxy S10+ завантажено в LineageOS"
+      ]
+    },
+    {
+      "id": "beyond2lte-11",
+      "title": "Після встановлення",
+      "warning": null,
+      "text": "Попередження завантажувача при включенні залишиться. Не видаляйте системні компоненти. Ознайомтеся з FAQ LineageOS.",
+      "commands": [],
+      "checklist": [
+        "Ознайомлено з керівництвом користувача"
+      ]
+    }
+  ]
+}

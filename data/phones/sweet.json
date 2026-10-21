@@ -1,0 +1,144 @@
+{
+  "brand": "Redmi",
+  "name": "Redmi Note 10 Pro",
+  "codename": "sweet",
+  "rarity": "common",
+  "base_price": 130,
+  "max_level": 5,
+  "active": true,
+  "emoji": "📱",
+  "firmware_note": null,
+  "sources": [
+    "https://wiki.lineageos.org/devices/sweet/install/variant1/"
+  ],
+  "instructions": [
+    {
+      "id": "sweet-01",
+      "title": "Перевір модель",
+      "warning": "Модель має збігатися ТОЧНО зі списком: M2101K6G, M2101K6R. Indian-версії Redmi Note 10 Pro — це окремі пристрої, вони цією інструкцією НЕ покриваються!",
+      "text": "Перевірте номер моделі на коробці або в меню «Про телефон». Інші версії цього пристрою прошивати цією інструкцією суворо заборонено.",
+      "commands": [],
+      "checklist": [
+        "Перевірено модель (M2101K6G або M2101K6R)",
+        "Переконанося, що це не Indian-версія"
+      ]
+    },
+    {
+      "id": "sweet-02",
+      "title": "Потрібна прошивка (firmware)",
+      "warning": "Неправильна версія firmware може призвести до збоїв і непоправної шкоди пристрою!",
+      "text": "Потрібна сумісна версія стокового firmware: Global V14.0.9.0.TKFMIXM; EEA V14.0.9.0.TKFEUXM; Russia V14.0.2.0.TKFRUXM; Turkey V14.0.2.0.TKFTRXM; Indonesia V14.0.2.0.TKFIDXM; Taiwan V14.0.4.0.TKFTWXM. Якщо потрібна інша версія Android, спершу відкати або онови стокову прошивку (інструкції для цього треба знайти окремо).",
+      "commands": [],
+      "checklist": [
+        "Версія firmware відповідає офіційному переліку"
+      ]
+    },
+    {
+      "id": "sweet-03",
+      "title": "Бекап і акаунти",
+      "warning": "Розблокування завантажувача видаляє всі персональні дані!",
+      "text": "Зробіть повний бекап на ПК. Видаліть усі акаунти Google та Mi (захист Factory Reset Protection). На стоковій системі перевірте роботу дзвінків і SMS (також через Wi-Fi і LTE).",
+      "commands": [],
+      "checklist": [
+        "Створено бекап даних на ПК",
+        "Видалено всі акаунти Google та Mi",
+        "Перевірено зв'язок (дзвінки, SMS, LTE, Wi-Fi)"
+      ]
+    },
+    {
+      "id": "sweet-04",
+      "title": "Інструменти",
+      "warning": null,
+      "text": "На ПК потрібні adb і fastboot (platform-tools від Google). USB debugging увімкнено на телефоні (Налаштування → Про телефон → тапнути номер збірки 7 разів → Параметри розробника). Перевірка: adb devices. Linux: можуть знадобитись правила udev; помилка «no permissions» у fastboot вирішується запуском від root. Якщо fastboot висить без виводу — спробуйте інший порт USB (краще USB-A 2.0).",
+      "commands": [
+        "adb devices"
+      ],
+      "checklist": [
+        "Інструменти adb і fastboot встановлено",
+        "Пристрій розпізнається через команду adb devices"
+      ]
+    },
+    {
+      "id": "sweet-05",
+      "title": "Розблокування bootloader (Xiaomi / Redmi / Poco)",
+      "warning": "ЦЕ ЄДИНИЙ крок, який потребує Windows (Windows 7+): Mi Unlock працює лише на Windows. НЕ використовуй сторонні «модифіковані» версії Mi Unlock!",
+      "text": "1. Створити Mi-акаунт на сайті Xiaomi і прив'язати номер телефону.\n2. Вставити SIM-картку в телефон.\n3. Увімкнути режим розробника (багато разів тапнути «Версія MIUI»).\n4. Прив'язати телефон: Параметри розробника → Mi Unlock status.\n5. Завантажити Mi Unlock (v7.6.727.43 за вікі LineageOS) та встановити driver_install.exe / driver_install_64.exe.\n6. Запустити Mi Unlock. Якщо програма вимагає чекати (мінімум 7 днів, до 30 днів) — чекати обов'язково.\n7. Після розблокування телефон скинеться — знову увімкнути USB debugging.",
+      "commands": [],
+      "checklist": [
+        "Прив'язано пристрій до Mi-акаунта",
+        "Завершено обов'язковий період очікування таймера",
+        "Bootloader розблоковано, USB debugging увімкнено"
+      ]
+    },
+    {
+      "id": "sweet-06",
+      "title": "Встановлення Recovery (Тип A)",
+      "warning": "ОДРАЗУ зайти в recovery, не завантажуючись у систему! Інакше стокова прошивка перезапише recovery.",
+      "text": "Завантажити recovery.img зі сторінки завантажень LineageOS для моделі sweet (інші recovery можуть не працювати). Перевести телефон у fastboot: adb -d reboot bootloader або вимкнений телефон + Volume Down + Power. Виконати fastboot flash recovery recovery.img. Потім одразу зайти в recovery: вимкнений телефон + Volume Up + Power; коли з'явиться логотип «MI», відпустити Power і тримати Volume Up, доки не з'явиться recovery (також можна виконати fastboot reboot recovery). Якщо немає логотипа LineageOS — це не той recovery: повторити крок.",
+      "commands": [
+        "adb -d reboot bootloader",
+        "fastboot devices",
+        "fastboot flash recovery recovery.img",
+        "fastboot reboot recovery"
+      ],
+      "checklist": [
+        "recovery.img прошито через fastboot",
+        "Успішний вхід у Lineage Recovery (видно логотип LineageOS)"
+      ]
+    },
+    {
+      "id": "sweet-07",
+      "title": "Форматування даних",
+      "warning": "Format data остаточно видаляє всі файли з пам'яті телефону!",
+      "text": "У recovery виберіть Factory Reset → Format data / factory reset (стирає все й знімає шифрування). Повернутися в головне меню. Якщо сенсор не реагує: використовуйте кнопки гучності та живлення.",
+      "commands": [],
+      "checklist": [
+        "Виконано скидання та форматування розділу Data"
+      ]
+    },
+    {
+      "id": "sweet-08",
+      "title": "Sideload LineageOS",
+      "warning": "Не перезавантажувати систему, доки не дочитаєш крок про додатки!",
+      "text": "На телефоні виберіть Apply update → Apply from ADB. На ПК введіть команду sideload. Нормально, якщо прогрес зупинився на 47% з повідомленням failed to read command: Success / No error / Undefined error: 0. Якщо підпис не пройшов — образ пошкоджено або неофіційний, завантажте заново.",
+      "commands": [
+        "adb -d sideload /path/to/lineageos.zip"
+      ],
+      "checklist": [
+        "Пакет LineageOS прошито через sideload"
+      ]
+    },
+    {
+      "id": "sweet-09",
+      "title": "Додатки (Google Apps), за бажанням",
+      "warning": "Встановлювати ТІЛЬКИ до першого запуску LineageOS!",
+      "text": "Використовуйте пакет GApps для arm64. Встановлення: Apply update → Apply from ADB → adb -d sideload /path/to/gapps.zip. На екрані «Signature verification failed» вибрати Yes (очікувано).",
+      "commands": [
+        "adb -d sideload /path/to/gapps.zip"
+      ],
+      "checklist": [
+        "GApps встановлено або пропущено"
+      ]
+    },
+    {
+      "id": "sweet-10",
+      "title": "Перший запуск",
+      "warning": null,
+      "text": "Поверніться назад та виберіть «Reboot system now». Перше завантаження триває до ~15 хвилин.",
+      "commands": [],
+      "checklist": [
+        "Смартфон успішно завантажився в LineageOS"
+      ]
+    },
+    {
+      "id": "sweet-11",
+      "title": "Після встановлення",
+      "warning": null,
+      "text": "Попередження про розблокований bootloader при запуску не прибрати. Не видаляйте системні програми. Рут офіційно не підтримується. Ознайомтеся з FAQ LineageOS перед будь-якими спробами блокування.",
+      "commands": [],
+      "checklist": [
+        "Ознайомлено з інструкціями після встановлення"
+      ]
+    }
+  ]
+}

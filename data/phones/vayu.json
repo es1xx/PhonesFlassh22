@@ -1,0 +1,142 @@
+{
+  "brand": "Xiaomi (Poco)",
+  "name": "Poco X3 Pro",
+  "codename": "vayu",
+  "rarity": "rare",
+  "base_price": 250,
+  "max_level": 5,
+  "active": true,
+  "emoji": "⚡",
+  "firmware_note": null,
+  "sources": [
+    "https://wiki.lineageos.org/devices/vayu/install/"
+  ],
+  "instructions": [
+    {
+      "id": "vayu-01",
+      "title": "Перевір модель",
+      "warning": "Модель має збігатися ТОЧНО: M2102J20SG, M2102J20SI. Інші версії прошивати цим способом не можна!",
+      "text": "Перевірте номер моделі на пристрої. Спроба прошити невідповідну модель може призвести до повного виходу з ладу.",
+      "commands": [],
+      "checklist": [
+        "Перевірено модель Poco X3 Pro (M2102J20SG або M2102J20SI)"
+      ]
+    },
+    {
+      "id": "vayu-02",
+      "title": "Потрібна прошивка (firmware)",
+      "warning": "Неправильна версія firmware може призвести до збоїв і непоправної шкоди пристрою!",
+      "text": "Потрібен стоковий Android 13. Сумісні версії firmware: EEA V14.0.2.0.TJUEUXM; Global V14.0.3.0.TJUMIXM; India V14.0.2.0.TJUINXM; Indonesia V14.0.3.0.TJUIDXM; Russia V14.0.1.0.TJURUXM; Taiwan V14.0.2.0.TJUTWXM; Turkey V14.0.1.0.TJUTRXM. Якщо версія Android відрізняється, оновіть або відкотіть стокову прошивку окремо.",
+      "commands": [],
+      "checklist": [
+        "Встановлено стоковий Android 13 з відповідним firmware"
+      ]
+    },
+    {
+      "id": "vayu-03",
+      "title": "Бекап і акаунти",
+      "warning": "Розблокування bootloader стирає всі збережені дані!",
+      "text": "Зробіть бекап на ПК. Видаліть усі акаунти Google (Factory Reset Protection) та Mi. Перевірте роботу дзвінків і SMS (також через Wi-Fi і LTE).",
+      "commands": [],
+      "checklist": [
+        "Створено бекап на ПК",
+        "Акаунти видалено",
+        "Дзвінки, SMS, Wi-Fi та LTE перевірено"
+      ]
+    },
+    {
+      "id": "vayu-04",
+      "title": "Інструменти",
+      "warning": null,
+      "text": "На ПК потрібні adb і fastboot (platform-tools). Увімкніть налагодження по USB (Налаштування → Про телефон → тапнути номер збірки 7 разів → Параметри розробника → USB debugging). Перевірка: adb devices. На Linux при помилці «no permissions» запустіть fastboot від імені root. Використовуйте надійний порт USB-A.",
+      "commands": [
+        "adb devices"
+      ],
+      "checklist": [
+        "Інструменти на ПК налаштовано",
+        "Пристрій підтверджено у виводі adb devices"
+      ]
+    },
+    {
+      "id": "vayu-05",
+      "title": "Розблокування bootloader (Xiaomi / Redmi / Poco)",
+      "warning": "ЦЕ ЄДИНИЙ крок, який потребує Windows 7+ (Mi Unlock працює тільки на Windows). НЕ використовуйте сторонні патчені утиліти!",
+      "text": "1. Створіть Mi-акаунт із номером телефону (ліміт: до 4 пристроїв на рік, не частіше разу на 30 днів).\n2. Вставте SIM у телефон.\n3. Увімкніть режим розробника та прив'яжіть телефон: Параметри розробника → Mi Unlock status.\n4. Завантажте офіційний Mi Unlock (v7.6.727.43) та встановіть драйвери.\n5. Запустіть Mi Unlock. Дочекайтеся закінчення таймера блокування (від 7 до 30 днів).\n6. Після розблокування телефон скидається до заводських налаштувань: повторно увімкніть USB debugging.",
+      "commands": [],
+      "checklist": [
+        "Телефон прив'язано до Mi-акаунта",
+        "Таймер очікування Mi Unlock пройдено",
+        "Bootloader розблоковано, USB debugging увімкнено знову"
+      ]
+    },
+    {
+      "id": "vayu-06",
+      "title": "Встановлення Recovery (Тип A)",
+      "warning": "ОДРАЗУ зайти в recovery після fastboot flash! Стокова прошивка перезапише recovery, якщо завантажитися в Android.",
+      "text": "Завантажте recovery.img зі сторінки завантажень LineageOS для vayu. Переведіть телефон у fastboot (adb -d reboot bootloader або Volume Down + Power). Прошийте recovery.img. Одразу після цього: затисніть Volume Up + Power; коли з'явиться логотип POCO, відпустіть Power і утримуйте Volume Up, доки не з'явиться меню recovery. Перевірте наявність логотипа LineageOS.",
+      "commands": [
+        "adb -d reboot bootloader",
+        "fastboot devices",
+        "fastboot flash recovery recovery.img"
+      ],
+      "checklist": [
+        "recovery.img прошито командою fastboot",
+        "Вхід у Lineage Recovery здійснено успішно"
+      ]
+    },
+    {
+      "id": "vayu-07",
+      "title": "Форматування даних",
+      "warning": "Форматування розділу Data видаляє абсолютно все!",
+      "text": "У recovery виберіть Factory Reset → Format data / factory reset. Поверніться в головне меню після завершення.",
+      "commands": [],
+      "checklist": [
+        "Format data виконано успішно"
+      ]
+    },
+    {
+      "id": "vayu-08",
+      "title": "Sideload LineageOS",
+      "warning": "Не перезавантажувати пристрій, якщо плануєте встановлювати GApps!",
+      "text": "На пристрої: Apply update → Apply from ADB. На комп'ютері: adb -d sideload /path/to/lineageos.zip. Зупинка на 47% з помилкою «failed to read command: Success» є нормальною та свідчить про успіх.",
+      "commands": [
+        "adb -d sideload /path/to/lineageos.zip"
+      ],
+      "checklist": [
+        "LineageOS передано через sideload"
+      ]
+    },
+    {
+      "id": "vayu-09",
+      "title": "Додатки (Google Apps), за бажанням",
+      "warning": "Встановлювати ТІЛЬКИ до першого завантаження системи!",
+      "text": "Використовуйте arm64 пакет GApps: Apply update → Apply from ADB → adb -d sideload. На попередження «Signature verification failed» натисніть Yes.",
+      "commands": [
+        "adb -d sideload /path/to/gapps.zip"
+      ],
+      "checklist": [
+        "GApps встановлено або пропущено"
+      ]
+    },
+    {
+      "id": "vayu-10",
+      "title": "Перший запуск",
+      "warning": null,
+      "text": "У головному меню натисніть «Reboot system now». Перше завантаження може зайняти до 15 хвилин.",
+      "commands": [],
+      "checklist": [
+        "Телефон завантажено в LineageOS"
+      ]
+    },
+    {
+      "id": "vayu-11",
+      "title": "Після встановлення",
+      "warning": null,
+      "text": "Попередження завантажувача не прибрати. Рут офіційно не підтримується. Банківські додатки можуть вимагати додаткових перевірок цілісності.",
+      "commands": [],
+      "checklist": [
+        "Ознайомлено з правилами безпеки"
+      ]
+    }
+  ]
+}

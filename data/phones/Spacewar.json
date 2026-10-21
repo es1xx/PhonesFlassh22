@@ -1,0 +1,147 @@
+{
+  "brand": "Nothing",
+  "name": "Nothing Phone (1)",
+  "codename": "Spacewar",
+  "rarity": "epic",
+  "base_price": 600,
+  "max_level": 5,
+  "active": true,
+  "emoji": "💡",
+  "firmware_note": null,
+  "sources": [
+    "https://wiki.lineageos.org/devices/Spacewar/install/",
+    "https://github.com/Nothing-2A/docs/wiki/Unlocking-the-Bootloader"
+  ],
+  "instructions": [
+    {
+      "id": "Spacewar-01",
+      "title": "Перевір модель",
+      "warning": "Модель має бути ТОЧНО Nothing Phone (1) (кодова назва Spacewar, модель A063). Інші версії цим методом прошивати заборонено!",
+      "text": "Перевірте номер моделі (A063) на коробці або в розділі інформації про телефон.",
+      "commands": [],
+      "checklist": [
+        "Модель A063 (Spacewar) підтверджено"
+      ]
+    },
+    {
+      "id": "Spacewar-02",
+      "title": "Потрібна прошивка (firmware)",
+      "warning": "Неправильна версія firmware може призвести до збоїв і непоправної шкоди пристрою!",
+      "text": "Потрібен стоковий Android 15 (останнє актуальне оновлення цієї версії). Якщо версія відрізняється, оновіть або відкотіть її окремо перед стартом.",
+      "commands": [],
+      "checklist": [
+        "Встановлено стоковий Android 15"
+      ]
+    },
+    {
+      "id": "Spacewar-03",
+      "title": "Бекап і акаунти",
+      "warning": "Розблокування bootloader стирає всі збережені файли!",
+      "text": "Зробіть бекап на комп'ютер. Видаліть усі облікові записи Google (FRP). Перевірте дзвінки, SMS, LTE та Wi-Fi на стоці.",
+      "commands": [],
+      "checklist": [
+        "Створено бекап",
+        "Облікові записи видалено",
+        "Зв'язок перевірено"
+      ]
+    },
+    {
+      "id": "Spacewar-04",
+      "title": "Інструменти та кабель",
+      "warning": "Використовуйте оригінальний кабель USB-C → USB-C. На Windows 11 перевірка підпису драйверів може заважати розпізнаванню пристрою!",
+      "text": "На ПК потрібні актуальні adb та fastboot. Увімкніть USB debugging на телефоні. Перевірка: adb devices.",
+      "commands": [
+        "adb devices"
+      ],
+      "checklist": [
+        "Оригінальний кабель підключено",
+        "adb та fastboot налаштовано"
+      ]
+    },
+    {
+      "id": "Spacewar-05",
+      "title": "Розблокування bootloader (Pixel / Nothing)",
+      "warning": "Після розблокування Nothing показує при кожному запуску «Orange State / OS Not Being Verified Or Custom OS» — це абсолютно нормально!",
+      "text": "1. Увімкнути пункт OEM unlocking у Параметрах розробника.\n2. Перевести телефон у bootloader (adb -d reboot bootloader або вимкнений телефон + Volume Down + Power). Перевірка: fastboot devices.\n3. Виконати команду fastboot flashing unlock. Кнопками гучності вибрати «Unlock the Bootloader», підтвердити кнопкою живлення. Якщо сам не перезавантажився — перезавантажити.\n4. Після скидання знову увімкнути USB debugging.",
+      "commands": [
+        "adb -d reboot bootloader",
+        "fastboot devices",
+        "fastboot flashing unlock"
+      ],
+      "checklist": [
+        "OEM unlocking активовано",
+        "Команду fastboot flashing unlock підтверджено",
+        "Зрозуміло статус Orange State при включенні"
+      ]
+    },
+    {
+      "id": "Spacewar-06",
+      "title": "Встановлення Recovery (Тип E: vendor_boot + boot)",
+      "warning": "Якщо немає логотипа LineageOS — це не той recovery: повторіть цей крок! Вхід у recovery пізніше: вимкнений телефон + Volume Down + Power.",
+      "text": "Завантажити vendor_boot.img і boot.img зі сторінки завантажень LineageOS (boot.img і є Lineage Recovery). Телефон у режимі bootloader (вимкнений + Volume Down + Power). Прошити спочатку vendor_boot, потім boot. Далі в меню вибрати «Recovery».",
+      "commands": [
+        "fastboot flash vendor_boot vendor_boot.img",
+        "fastboot flash boot boot.img"
+      ],
+      "checklist": [
+        "vendor_boot.img та boot.img прошито",
+        "Успішно здійснено вхід у Lineage Recovery"
+      ]
+    },
+    {
+      "id": "Spacewar-07",
+      "title": "Форматування даних",
+      "warning": "Format data остаточно видаляє всі файли!",
+      "text": "У recovery виберіть Factory Reset → Format data / factory reset. Поверніться назад.",
+      "commands": [],
+      "checklist": [
+        "Форматування даних завершено"
+      ]
+    },
+    {
+      "id": "Spacewar-08",
+      "title": "Sideload LineageOS",
+      "warning": "Після інсталяції recovery запитає, чи перезавантажитись у recovery для додатків: натисніть «Yes», якщо потрібні GApps, інакше «No»!",
+      "text": "На телефоні: Apply update → Apply from ADB. На ПК: adb -d sideload /path/to/lineageos.zip. Зупинка на 47% з помилкою read command Success є нормальним результатом.",
+      "commands": [
+        "adb -d sideload /path/to/lineageos.zip"
+      ],
+      "checklist": [
+        "LineageOS передано через sideload",
+        "Зроблено вибір щодо встановлення GApps"
+      ]
+    },
+    {
+      "id": "Spacewar-09",
+      "title": "Додатки (Google Apps), за бажанням",
+      "warning": "Встановлювати ТІЛЬКИ до першого запуску системи!",
+      "text": "Пакет arm64. На телефоні: Apply update → Apply from ADB → adb -d sideload /path/to/gapps.zip. На екрані «Signature verification failed» вибрати Yes.",
+      "commands": [
+        "adb -d sideload /path/to/gapps.zip"
+      ],
+      "checklist": [
+        "GApps встановлено або пропущено"
+      ]
+    },
+    {
+      "id": "Spacewar-10",
+      "title": "Перший запуск",
+      "warning": null,
+      "text": "Виберіть «Reboot system now». Перше завантаження займає до 15 хвилин.",
+      "commands": [],
+      "checklist": [
+        "Nothing Phone (1) завантажено в LineageOS"
+      ]
+    },
+    {
+      "id": "Spacewar-11",
+      "title": "Після встановлення",
+      "warning": null,
+      "text": "Orange State при включенні залишиться. Не видаляйте системні компоненти. Ознайомтеся з FAQ LineageOS.",
+      "commands": [],
+      "checklist": [
+        "Ознайомлено з інструкцією після встановлення"
+      ]
+    }
+  ]
+}

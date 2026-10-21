@@ -1,0 +1,6 @@
+{
+  "name": "Флешер — Симулятор прошивки",
+  "description": "Навчальна гра-симулятор прошивки реальних смартфонів та Telegram Mini App з покроковими інструкціями.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

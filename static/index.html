@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Флешер — Симулятор та гра прошивки смартфонів</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Верхня панель (Шапка) -->
+        <header class="app-header">
+            <div class="user-info">
+                <span id="user-avatar" class="avatar-icon">⚡</span>
+                <div class="user-meta">
+                    <span id="username-display" class="username">Гравець</span>
+                    <span id="app-mode-badge" class="mode-badge">DEBUG</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <!-- Баланс монет -->
+                <div class="balance-badge">
+                    <span class="coin-icon">🪙</span>
+                    <span id="balance-display" class="balance-text">100</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Попередження про навчальний характер гри -->
+        <div class="disclaimer-banner">
+            <span class="warning-icon">⚠️</span>
+            <span id="disclaimer-text-el" class="disclaimer-text" data-i18n="disclaimer">
+                Навчальний симулятор: реальна взаємодія з кнопками телефона, ризик збоїв, справжній термінал та жодних нудних галочок!
+            </span>
+        </div>
+
+        <!-- Секція таймера отримання картки (тільки на вкладці колекції) -->
+        <section id="claim-section" class="claim-card">
+            <div class="claim-header">
+                <div>
+                    <h3 data-i18n="claim_title">Отримання смартфона</h3>
+                    <p class="claim-desc" data-i18n="claim_desc">Випадкова картка однієї з 15 реальних моделей із реальними інструкціями.</p>
+                </div>
+                <div id="cooldown-timer" class="timer-display">--:--:--</div>
+            </div>
+            <div class="claim-action">
+                <button id="btn-claim-phone" class="btn btn-primary" disabled data-i18n="btn_wait">
+                    Зачекайте...
+                </button>
+            </div>
+        </section>
+
+        <!-- Вкладка 1: Моя колекція -->
+        <main id="collection-view" class="view-tab">
+            <div class="section-header">
+                <h2 data-i18n="my_collection">Моя колекція</h2>
+                <div class="filter-tabs">
+                    <button class="tab-btn active" data-filter="all" data-i18n="filter_all">Всі (0)</button>
+                    <button class="tab-btn" data-filter="flashed" data-i18n="filter_flashed">Прошиті (0)</button>
+                    <button class="tab-btn" data-filter="stock" data-i18n="filter_stock">Не прошиті (0)</button>
+                </div>
+            </div>
+
+            <!-- Контейнер карток колекції -->
+            <div id="collection-grid" class="cards-grid">
+                <!-- Картки генеруються динамічно -->
+            </div>
+        </main>
+
+        <!-- Вкладка 2: Магазин смартфонів -->
+        <main id="shop-view" class="view-tab hidden">
+            <div class="section-header">
+                <h2 data-i18n="shop_title">Магазин телефонів</h2>
+                <p class="shop-subtitle" data-i18n="shop_desc">Придбайте конкретну бажану модель за віртуальні монети.</p>
+            </div>
+            <div id="shop-grid" class="cards-grid">
+                <!-- Товари генеруються динамічно -->
+            </div>
+        </main>
+
+        <!-- Вкладка 3: Адмін-панель (ID: 7674443928) -->
+        <main id="admin-view" class="view-tab hidden">
+            <div class="section-header">
+                <h2>🛡️ Панель адміністратора</h2>
+                <span class="mode-badge">ID: 7674443928</span>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Гравців</span>
+                    <span id="admin-stat-users" class="stat-value">1,248</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Карток у грі</span>
+                    <span id="admin-stat-cards" class="stat-value">3,892</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Прошито</span>
+                    <span id="admin-stat-flashed" class="stat-value text-emerald">1,419</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Обсяг монет</span>
+                    <span id="admin-stat-coins" class="stat-value text-amber">482,900</span>
+                </div>
+            </div>
+
+            <!-- Розсилка -->
+            <div class="admin-broadcast-box">
+                <h4>📢 Розсилка гравцям</h4>
+                <textarea id="admin-broadcast-input" placeholder="Введіть текст повідомлення..."></textarea>
+                <button id="btn-admin-broadcast" class="btn btn-primary btn-sm">Надіслати розсилку</button>
+            </div>
+        </main>
+
+        <!-- Вкладка 4: Налаштування та мова -->
+        <main id="settings-view" class="view-tab hidden">
+            <div class="section-header">
+                <h2>⚙️ Налаштування та опції</h2>
+            </div>
+            
+            <!-- Мови -->
+            <div class="settings-card">
+                <h4>🌐 Мова інтерфейсу</h4>
+                <div class="lang-switcher-large">
+                    <button class="lang-btn active" data-lang="uk">🇺🇦 Українська</button>
+                    <button class="lang-btn" data-lang="en">🇬🇧 English</button>
+                    <button class="lang-btn" data-lang="ru">🇷🇺 Русский</button>
+                </div>
+            </div>
+
+            <!-- DEV TOOLS -->
+            <div id="dev-panel" class="dev-panel">
+                <div class="dev-header">
+                    <span class="dev-badge">🛠️ DEV TOOLS</span>
+                    <span class="dev-hint">(швидкі тести)</span>
+                </div>
+                <div class="dev-buttons">
+                    <button id="btn-dev-cooldown" class="btn btn-dev">⏱️ Скинути кулдаун</button>
+                    <button id="btn-dev-coins" class="btn btn-dev">🪙 +1000 монет</button>
+                    <button id="btn-dev-flash-all" class="btn btn-dev">⚡ Прошити всі мої</button>
+                    <button id="btn-dev-clear" class="btn btn-dev btn-danger">🗑️ Очистити колекцію</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- МОДАЛЬНЕ ВІКНО: РЕАЛІСТИЧНА ФЛЕШ-ЛАБОРАТОРІЯ БЕЗ ГАЛОЧОК -->
+        <div id="flash-modal" class="modal-overlay hidden">
+            <div class="modal-content lab-modal">
+                <!-- Шапка лабораторії -->
+                <div class="modal-header">
+                    <div class="modal-phone-title">
+                        <span id="modal-phone-emoji" class="modal-emoji">📱</span>
+                        <div>
+                            <h3 id="modal-phone-name">Смартфон</h3>
+                            <span id="modal-stage-counter" class="step-counter font-mono">РЕЖИМ: READY</span>
+                        </div>
+                    </div>
+                    <button id="btn-close-modal" class="btn-close" aria-label="Закрити">&times;</button>
+                </div>
+
+                <!-- Інтерактивна робоча зона лабораторії -->
+                <div class="flashing-workspace">
+                    <!-- Смартфон з фізичними бічними кнопками -->
+                    <div class="phone-mockup-wrapper">
+                        <!-- Ліва кнопка Vol Down / Bixby -->
+                        <div class="side-buttons-left">
+                            <button id="btn-mockup-volup" class="hardware-key" title="Vol Up"></button>
+                            <button id="btn-mockup-voldown" class="hardware-key" title="Vol Down"></button>
+                        </div>
+
+                        <!-- Права кнопка Power -->
+                        <div class="side-buttons-right">
+                            <button id="btn-mockup-power" class="hardware-key key-power" title="Power"></button>
+                        </div>
+
+                        <!-- Корпус смартфона -->
+                        <div class="phone-mockup">
+                            <div class="phone-mockup-speaker"></div>
+                            <div id="phone-screen" class="phone-mockup-screen state-stock">
+                                <div class="screen-content">
+                                    <div id="screen-status-icon" class="screen-icon">📱</div>
+                                    <div id="screen-status-title" class="screen-title">Stock OS</div>
+                                    <div id="screen-status-desc" class="screen-desc">Пристрій підключено по USB</div>
+                                    
+                                    <!-- Сенсорне меню Recovery на екрані -->
+                                    <div id="screen-recovery-menu" class="screen-recovery-menu hidden">
+                                        <button id="btn-screen-sideload" class="recovery-item">› Apply from ADB (Sideload)</button>
+                                        <button id="btn-screen-wipe" class="recovery-item danger">› Wipe / Format Data</button>
+                                        <button id="btn-screen-reboot" class="recovery-item">› Reboot system now</button>
+                                    </div>
+
+                                    <!-- Прогрес-бар Sideload 47% -->
+                                    <div id="screen-progress-wrap" class="screen-progress hidden">
+                                        <div id="screen-progress-bar" class="screen-progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Панель дій та кнопок керування -->
+                    <div class="action-controls-box">
+                        <div class="control-header">
+                            <span class="control-title">Керування воркшопом:</span>
+                            <span id="control-hint" class="control-hint">Затисніть кнопки збоку на 3-4 секунди</span>
+                        </div>
+
+                        <div class="workshop-buttons">
+                            <!-- Кнопка утримання комбінації клавіш -->
+                            <button id="btn-hold-combination" class="btn btn-primary flex-1">
+                                🔘 <span id="hold-btn-text">Затиснути Power + Vol Down</span>
+                            </button>
+
+                            <!-- Кнопка прошивки Recovery через Fastboot -->
+                            <button id="btn-action-flash-recovery" class="btn btn-success flex-1 hidden">
+                                ⚡ fastboot flash recovery
+                            </button>
+
+                            <!-- Кнопка palera1n для iPhone -->
+                            <button id="btn-action-palera1n" class="btn btn-success flex-1 hidden">
+                                🍏 palera1n -l (Jailbreak)
+                            </button>
+
+                            <!-- Кнопка розблокування збою / Unbrick -->
+                            <button id="btn-action-unbrick" class="btn btn-danger flex-1 hidden">
+                                🛠️ Відновити збій / Unbrick
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Автентичний емулятор Linux/macOS термінала -->
+                    <div id="modal-terminal-box" class="terminal-box">
+                        <div class="terminal-bar">
+                            <span class="term-dot red"></span>
+                            <span class="term-dot yellow"></span>
+                            <span class="term-dot green"></span>
+                            <span class="term-title">bash — arch-linux: ~/platform-tools</span>
+                        </div>
+                        <div id="modal-terminal-logs" class="terminal-logs"></div>
+                    </div>
+                </div>
+
+                <!-- Підвал модалки: Фініш прошивки -->
+                <div class="modal-actions">
+                    <button id="btn-modal-cancel" class="btn btn-outline">Закрити</button>
+                    <button id="btn-modal-finish" class="btn btn-success" disabled>🎉 Завершити прошивку</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижня мобільна панель навігації (Telegram Mini App Style) -->
+        <nav id="bottom-nav-bar" class="bottom-nav-bar">
+            <button id="bnav-btn-collection" class="bnav-item active">
+                <span class="bnav-icon">📱</span>
+                <span class="bnav-label" data-i18n="nav_collection">Колекція</span>
+            </button>
+            <button id="bnav-btn-shop" class="bnav-item">
+                <span class="bnav-icon">🏪</span>
+                <span class="bnav-label" data-i18n="nav_shop">Магазин</span>
+            </button>
+            <button id="bnav-btn-admin" class="bnav-item">
+                <span class="bnav-icon">🛡️</span>
+                <span class="bnav-label">Адмінка</span>
+            </button>
+            <button id="bnav-btn-settings" class="bnav-item">
+                <span class="bnav-icon">⚙️</span>
+                <span class="bnav-label">Опції</span>
+            </button>
+        </nav>
+
+        <!-- Спливаючі сповіщення (Toast) -->
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <script src="/js/telegram.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

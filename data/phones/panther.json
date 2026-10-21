@@ -1,0 +1,160 @@
+{
+  "brand": "Google",
+  "name": "Pixel 7",
+  "codename": "panther",
+  "rarity": "epic",
+  "base_price": 540,
+  "max_level": 5,
+  "active": true,
+  "emoji": "📱",
+  "firmware_note": "Актуальна вікі LineageOS вимагає стоковий Android 16 для panther, cheetah і lynx; у копії вікі 2025 року для всіх чотирьох було Android 15. Перед прошивкою обовʼязково звір потрібну версію на сторінці своєї моделі",
+  "sources": [
+    "https://wiki.lineageos.org/devices/panther/install/"
+  ],
+  "instructions": [
+    {
+      "id": "panther-01",
+      "title": "Перевір модель",
+      "warning": "Модель має бути саме Google Pixel 7 (panther). Інші модифікації пристроїв цим методом прошивати не можна!",
+      "text": "Перевірте назву та кодову назву в налаштуваннях пристрою.",
+      "commands": [],
+      "checklist": [
+        "Модель перевірено (Pixel 7, panther)"
+      ]
+    },
+    {
+      "id": "panther-02",
+      "title": "Потрібна прошивка (firmware)",
+      "warning": "Неправильна версія firmware може призвести до збоїв і непоправної шкоди пристрою!",
+      "text": "Перед прошивкою обов'язково звірте потрібну базову версію Android на сторінці моделі у вікі LineageOS. За потреби оновіть або відкотіть стокову прошивку окремо.",
+      "commands": [],
+      "checklist": [
+        "Базову версію Android звірено з актуальною сторінкою моделі"
+      ]
+    },
+    {
+      "id": "panther-03",
+      "title": "Бекап і акаунти",
+      "warning": "Розблокування bootloader стирає всі дані безповоротно!",
+      "text": "Створіть резервну копію на ПК. Видаліть акаунти Google (FRP). Перевірте роботу дзвінків, SMS, Wi-Fi та LTE на стоці.",
+      "commands": [],
+      "checklist": [
+        "Бекап створено",
+        "Акаунти Google видалено",
+        "Зв'язок перевірено"
+      ]
+    },
+    {
+      "id": "panther-04",
+      "title": "Інструменти",
+      "warning": null,
+      "text": "Встановіть adb та fastboot на ПК. Увімкніть налагодження по USB у меню розробника. Перевірка: adb devices.",
+      "commands": [
+        "adb devices"
+      ],
+      "checklist": [
+        "adb та fastboot налаштовано"
+      ]
+    },
+    {
+      "id": "panther-05",
+      "title": "Розблокування bootloader (Pixel / Nothing)",
+      "warning": "Процедура розблокування скидає пристрій до заводського стану!",
+      "text": "1. Увімкнути OEM unlocking у Параметрах розробника.\n2. Перевести телефон у bootloader (adb -d reboot bootloader або Volume Down + Power). Перевірка: fastboot devices.\n3. Виконати fastboot flashing unlock та підтвердити кнопками на телефоні.\n4. Після перезавантаження повторно увімкнути USB debugging.",
+      "commands": [
+        "adb -d reboot bootloader",
+        "fastboot devices",
+        "fastboot flashing unlock"
+      ],
+      "checklist": [
+        "OEM unlocking дозволено",
+        "fastboot flashing unlock підтверджено",
+        "USB debugging увімкнено знову"
+      ]
+    },
+    {
+      "id": "panther-06",
+      "title": "Встановлення Recovery (Тип D: 4 образи)",
+      "warning": "Якщо немає логотипа LineageOS — це не той recovery: повторіть від початку! Якщо fastboot пише «No such file or directory», вкажіть повний шлях до файлу.",
+      "text": "Завантажте зі сторінки завантажень LineageOS для panther образи boot.img, dtbo.img, vendor_kernel_boot.img і vendor_boot.img. У режимі bootloader прошийте всі образи. Потім кнопками гучності виберіть «Recovery mode» і підтвердьте кнопкою живлення.",
+      "commands": [
+        "fastboot flash boot boot.img",
+        "fastboot flash dtbo dtbo.img",
+        "fastboot flash vendor_kernel_boot vendor_kernel_boot.img",
+        "fastboot flash vendor_boot vendor_boot.img"
+      ],
+      "checklist": [
+        "Усі 4 образи прошито",
+        "Успішний вхід у Lineage Recovery"
+      ]
+    },
+    {
+      "id": "panther-07",
+      "title": "Форматування даних",
+      "warning": "Format data видаляє абсолютно всі файли з пристрою!",
+      "text": "У recovery виберіть Factory Reset → Format data / factory reset. Поверніться назад.",
+      "commands": [],
+      "checklist": [
+        "Format data виконано"
+      ]
+    },
+    {
+      "id": "panther-08",
+      "title": "Sideload LineageOS",
+      "warning": "Після інсталяції recovery запитає, чи перезавантажитись у recovery для встановлення додатків: Yes, якщо потрібні GApps, інакше No!",
+      "text": "На телефоні: Apply update → Apply from ADB. На ПК: adb -d sideload /path/to/lineageos.zip. Прогрес 47% із повідомленням Success означає завершення.",
+      "commands": [
+        "adb -d sideload /path/to/lineageos.zip"
+      ],
+      "checklist": [
+        "LineageOS передано через sideload",
+        "Вибрано відповідь на запит про перезавантаження для GApps"
+      ]
+    },
+    {
+      "id": "panther-09",
+      "title": "Додатки (Google Apps), за бажанням",
+      "warning": "Встановлювати ТІЛЬКИ до першого запуску системи!",
+      "text": "Пакет arm64. На телефоні: Apply update → Apply from ADB → adb -d sideload /path/to/gapps.zip. На екрані «Signature verification failed» вибрати Yes.",
+      "commands": [
+        "adb -d sideload /path/to/gapps.zip"
+      ],
+      "checklist": [
+        "GApps встановлено або пропущено"
+      ]
+    },
+    {
+      "id": "panther-10",
+      "title": "Перший запуск",
+      "warning": null,
+      "text": "Виберіть «Reboot system now». Перше завантаження займає до 15 хвилин.",
+      "commands": [],
+      "checklist": [
+        "Pixel 7 завантажено в LineageOS"
+      ]
+    },
+    {
+      "id": "panther-11",
+      "title": "Після встановлення",
+      "warning": null,
+      "text": "Попередження завантажувача не прибирається. Не видаляйте системні пакети. Ознайомтеся з FAQ LineageOS.",
+      "commands": [],
+      "checklist": [
+        "Ознайомлено з інструкціями після прошивки"
+      ]
+    },
+    {
+      "id": "panther-12",
+      "title": "Повернення до стоку (Необов'язково)",
+      "warning": "Увага про anti-rollback: при встановленні збірки травня 2025 року чи новішої вперше треба після першого успішного завантаження завантажити sideload повний OTA-образ тієї ж збірки й перезавантажитись, щоб обидва слоти мали завантажувальний образ! Блокувати bootloader можна ТІЛЬКИ на повністю стоковій прошивці!",
+      "text": "Google радить спершу спробувати sideload повного OTA-образу, а фабричний образ стирає дані. Розпакуйте архів, у fastboot запустіть flash-all. Після цього можна знову заблокувати bootloader командою fastboot flashing lock. Точні кроки на developers.google.com/android/images.",
+      "commands": [
+        "./flash-all.sh",
+        "fastboot flashing lock"
+      ],
+      "checklist": [
+        "Ознайомлено з порядком повернення до заводської прошивки"
+      ]
+    }
+  ]
+}
